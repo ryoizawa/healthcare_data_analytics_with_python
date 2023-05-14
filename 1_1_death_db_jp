@@ -1,0 +1,54 @@
+# ANBとALBの違いを図で描写
+
+# グラフを移動拡大縮小した場合
+%matplotlib notebook
+# グラフをインラインで表示
+# %matplotlib inline
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+# matplotlibのフォントを設定
+pd.options.display.max_rows = 6
+
+plt.rcParams['font.family'] = 'Tims New Roman'
+plt.rcParams['mathtext.fontset'] = 'stix'
+
+
+# ALBとANBの違いの概念図
+
+fig = plt.figure(figsize=(8, 3))
+ax = fig.add_subplot(111)
+ax.annotate(s='', xytext=[39, 0], xy=[41.5, 0],
+           arrowprops=dict(arrowstyle='->', color='k'))
+ax.text(41.6, 0, 'Age', va='center')
+
+# ANB
+ax.plot([39.5, 40.25], [0.5, 0.5], c='k')
+ax.plot([39.5, 39.5], [0, 0.5], c='k')
+ax.plot([40.25, 40.5], [0.5, 0], c='k')
+ax.text(40, 0.75, 'ANB=40', va='center', ha='center')
+
+
+# ALB
+ax.plot([40, 40.75], [-0.5, -0.5], c='k')
+ax.plot([40, 40], [0, -0.5], c='k')
+ax.plot([40.75, 41], [-0.5, 0], c='k')
+ax.text(40.5, -0.75, 'ALB=40', va='center', ha='center')
+
+# AGE
+ax.text(39.5, -0.2, '39.5', va='center', ha='center')
+ax.text(40, 0.2, '40', va='center', ha='center')
+ax.text(40.5, -0.2, '40.5', va='center', ha='center')
+ax.text(41, 0.2, '41', va='center', ha='center')
+X = np.arange(4) / 2 + 39.5
+Y = np.zeros(4)
+ax.scatter(X, Y, c='k', marker='|')
+
+ax.set_xlim(38.5, 42)
+ax.set_xticklabels('')
+ax.set_ylim(-1, 1)
+ax.set_yticklabels('')
+ax.tick_params(top=False, bottom=False, left=False, right=False)
+ax.set_title('Concept of ANB and ALB')
