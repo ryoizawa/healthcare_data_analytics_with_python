@@ -52,3 +52,73 @@ ax.set_ylim(-1, 1)
 ax.set_yticklabels('')
 ax.tick_params(top=False, bottom=False, left=False, right=False)
 ax.set_title('Concept of ANB and ALB')
+
+---
+出生比率
+---
+
+# 出生数を取得・格納
+url = 'https://www.ipss.go.jp/p-toukei/JMD/00/STATS/Births.txt'
+df_birth = pd.read_csv(url, skiprows=1, delim_whitespace=True)
+df_birth
+
+# 出生数を取得・格納
+url = 'https://www.ipss.go.jp/p-toukei/JMD/00/STATS/Births.txt'
+
+df_birth = pd.read_csv(url, skiprows=1, delim_whitespace=True)
+
+df_birth
+
+# Female
+df_birth_F = df_birth[['Year', 'Female']].copy()
+df_birth_F.columns = ['year', 'l']
+df_birth_F['sex'] = 'F'
+
+#Male
+df_birth_M = df_birth[['Year', 'Male']].copy()
+df_birth_M.columns = ['year', 'l']
+df_birth_M['sex'] = 'M'
+
+#縦方向に結合
+df_birth = pd.concat([df_birth_F, df_birth_M], axis=0, ignore_index=True)
+
+df_birth
+
+#乱数を使ったシミュレーションのために累積比率を計算
+df_birth['ratio'] = df_birth['l'] / df_birth['l'].sum()
+df_birth['cum_ratio'] = df_birth['ratio'].cumsum()
+del df_birth['l']
+
+df_birth
+
+#pd.DataFrameはpd.to_csv()によってCSVコマンドで呼び出すことができる
+df_birth.to_csv('./ipss_birth.csv', index=False)
+
+#作成したCSVファイルはpd.read_csvコマンドで呼び出す
+df_birth2 = pd.read_csv('./ipss_birth.csv')
+df_birth2
+
+
+#乱数を利用したデータの生成方法
+#累積比率と一様乱数を使った、男女別・誕生年別の割合の作成方法の概念図
+    
+fig = plt.figure()
+ax = fig.add_subplot(111)
+#折れ線
+x = df_birth.index
+y = df_birth['cum_ratio']
+ax.plot(x, y)
+xlabels = df_birth['year'].apply(str) + ' ' + df_birth['sex']
+ax.set_xticks(x[::10])
+ax.set_xticklabels(xlabels[::10], rotation='45')
+#水平矢印
+ax.annotate(s='', xytext=[0, 0.7], xy=[92.57888, 0.7],
+           arrowprops=dict(arrowstyle='->', color='k'))
+#垂直矢印
+ax.annotate(s='', xytext=[92.57888, 0.7], xy=[92.57888, 0],
+           arrowprops=dict(arrowstyle='->', color='k'))
+#テキスト
+ax.text(x=0, y=0.72, s='$random\ number=0.7$')
+ax.text(x=94, y=0.1, s='$1969, \ M$')
+#タイトル
+ax.set_title("Cumulative Ratio of Pupulation Birth")
