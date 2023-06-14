@@ -1,0 +1,6 @@
+## 患者調査「受領率の算出に用いた人口」をダウンロード（https://www.mhlw.go.jp/toukei/saikin/hw/kanja/17/index.html as ps_pop.csv）
+## 「平成２９年患者調査　6-1 推計患者数: 新入院患者数・外来患者数1日あたり」　をダウンロード(https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00450022&tstat=000001031167&cycle=7&tclass1=000001124800&tclass2=000001124803&tclass3val=0 as ps_hosp.csv)
+## 「平成２９年患者調査　72 平均在院日数: 退院患者平均在院日数」　をダウンロード(https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00450022&tstat=000001031167&cycle=7&tclass1=000001124800&tclass2=000001124803&tclass3val=0 as ps_days.csv)
+
+## *患者調査の疾病分類はICDではなく、疾病大分類、中分類、小分類
+## これらの分類とICD10との対応表　https://www.mhlw.go.jp/toukei/sippei/
